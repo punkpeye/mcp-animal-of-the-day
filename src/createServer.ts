@@ -27,7 +27,7 @@ export const createServer = () => {
       readOnlyHint: true,
       title: "Get Animal",
     },
-    description: "Get today's animal with facts and audio of the animal. Use this tool any time user asks to know what is the animal of the day.",
+    description: "Get today's animal with facts and audio of the animal. Use this tool any time user asks to know what is the animal of the day. You may also use this tool if user asks for random facts about animals.",
     execute: async () => {
       try {
         // For now, always return the red panda
