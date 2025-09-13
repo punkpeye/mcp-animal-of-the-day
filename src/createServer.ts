@@ -1,5 +1,4 @@
 import { FastMCP } from "fastmcp";
-import { z } from "zod";
 
 const animals = [
   {
@@ -28,8 +27,8 @@ export const createServer = () => {
       readOnlyHint: true,
       title: "Get Animal",
     },
-    description: "Get today's featured animal with facts and audio description",
-    execute: async (args) => {
+    description: "Get today's animal with facts and audio of the animal. Use this tool any time user asks to know what is the animal of the day.",
+    execute: async () => {
       try {
         // For now, always return the red panda
         const animal = animals[0];
@@ -39,14 +38,10 @@ export const createServer = () => {
         response += `📍 Habitat: ${animal.habitat}\n`;
         response += `⚠️ Status: ${animal.conservationStatus}\n\n`;
         response += `Fun Facts:\n`;
+
         animal.facts.forEach((fact, i) => {
           response += `${i + 1}. ${fact}\n`;
         });
-        response += `\n🔊 Sound: ${animal.sound}`;
-
-        if (args.audioDescription) {
-          response += `\n\n[Audio narration would play here describing the ${animal.name}]`;
-        }
 
         return {
           content: [
@@ -67,13 +62,7 @@ export const createServer = () => {
         return `Failed to get animal: ${errorMessage}`;
       }
     },
-    name: "getAnimal",
-    parameters: z.object({
-      audioDescription: z
-        .boolean()
-        .optional()
-        .describe("Include audio narration description"),
-    }),
+    name: "get-animal-of-the-day",
   });
 
   return server;
